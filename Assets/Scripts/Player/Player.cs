@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Animator animator;
-
     public CharacterController characterController;
     public float speed = 1f;
     public float turnSpeed = 1f;
@@ -16,13 +15,14 @@ public class Player : MonoBehaviour
     public KeyCode keyrun = KeyCode.LeftShift;
     public float speedRun = 1.5f;
 
+    private int jumpCount = 0;
+    private int maxJumpCount = 2;
     private float vSpeed = 0f;
 
     private void Update()
     {
         Move();
         Jump();
-        isGorounded();
     }
 
     private void Move()
@@ -53,29 +53,38 @@ public class Player : MonoBehaviour
         characterController.Move(speedvector * Time.deltaTime);
 
         //ANIMATOR MOVEMENT
-        //esse código serve para if/else pq sempre vai ser 2 condições(true or false)
         animator.SetBool("isWalking", InputAxisVertical != 0);
     }
 
     private void Jump()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumpCount)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && isGorounded())
+            vSpeed = jumpSpeed;
+            if (jumpCount == 0)
             {
-                vSpeed = jumpSpeed;
-                animator.speed = speedRun;
                 animator.SetBool("isJumping", true);
             }
-            else 
+            else
             {
-                animator.speed = 1;
-                animator.SetBool("isJumping", false);
+                animator.SetBool("isDoubleJumping", true);
             }
+            jumpCount++;
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isDoubleJumping", false);
         }
     }
 
-    private bool isGorounded()
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-       return characterController.isGrounded;
+        if (hit.normal.y > 0.1f)
+        {
+            jumpCount = 0;
+        }
     }
 }
+
+
