@@ -20,7 +20,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Move();                    
+        Move();
+        Jump();
+        isGorounded();
     }
 
     private void Move()
@@ -29,8 +31,6 @@ public class Player : MonoBehaviour
 
         var InputAxisVertical = Input.GetAxis("Vertical");
         var speedvector = transform.forward * InputAxisVertical * speed;
-
-        Jump();
 
         //running
         var isWalking = InputAxisVertical != 0;
@@ -55,19 +55,23 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (characterController.isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && isGorounded())
             {
                 vSpeed = jumpSpeed;
                 animator.speed = speedRun;
                 animator.SetBool("isJumping", true);
             }
-            else
+            else 
             {
                 animator.speed = 1;
                 animator.SetBool("isJumping", false);
             }
         }
+    }
+
+    private bool isGorounded()
+    {
+       return characterController.isGrounded;
     }
 }
