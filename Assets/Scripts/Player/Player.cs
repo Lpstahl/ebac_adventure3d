@@ -41,6 +41,11 @@ public class Player : MonoBehaviour
                 speedvector *= speedRun;
                 animator.SetBool("isRunning", InputAxisVertical != 0);
             }
+            if (!Input.GetKey(keyrun))
+            {
+                animator.SetBool("isRunning", InputAxisVertical != 1);
+
+            }
         }
 
         vSpeed -= gravity * Time.deltaTime;
@@ -55,17 +60,19 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
+        var InputAxisVertical = Input.GetAxis("Vertical");
         {
             if (Input.GetKeyDown(KeyCode.Space) && isGorounded())
             {
                 vSpeed = jumpSpeed;
                 animator.speed = speedRun;
-                animator.SetBool("isJumping", true);
+                animator.SetBool("isJumping", InputAxisVertical !=0);
             }
             else 
             {
                 animator.speed = 1;
-                animator.SetBool("isJumping", false);
+                animator.SetBool("isJumping", InputAxisVertical !=1);
+                
             }
         }
     }
