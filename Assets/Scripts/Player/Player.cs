@@ -18,11 +18,23 @@ public class Player : MonoBehaviour
     private int jumpCount = 0;
     private int maxJumpCount = 2;
     private float vSpeed = 0f;
+    private Transform renderTranform;
+
+    private void Awake()
+    {
+        renderTranform = animator.transform;
+    }
 
     private void Update()
     {
         Move();
         Jump();
+    }
+
+    private void AlignRender()
+    {
+        //settar a rotação 0 local nele. Isso não priva da animação modificar a rotação, porém, ela sempre vai ser resettada em cada frame, então a variação é muito pequena e visualmente aparenta resolver o problema.
+        renderTranform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     private void Move()
