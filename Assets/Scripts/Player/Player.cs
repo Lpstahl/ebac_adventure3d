@@ -61,20 +61,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumpCount)
         {
             vSpeed = jumpSpeed;
-            if (jumpCount == 0)
-            {
-                animator.SetBool("isJumping", true);
-            }
-            else
-            {
-                animator.SetBool("isDoubleJumping", true);
-            }
+            animator.SetBool("isJumping", true);
             jumpCount++;
         }
         else
         {
             animator.SetBool("isJumping", false);
-            animator.SetBool("isDoubleJumping", false);
         }
     }
 
@@ -86,5 +78,3 @@ public class Player : MonoBehaviour
         }
     }
 }
-
-
