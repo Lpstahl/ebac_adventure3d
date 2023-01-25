@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToDestroy: 2
   damageAmount: 1
-  speed: 50
+  speed: 30
 --- !u!1 &8591964242409809238
 GameObject:
   m_ObjectHideFlags: 0
