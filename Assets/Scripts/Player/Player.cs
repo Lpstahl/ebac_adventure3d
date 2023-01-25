@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Jump();
+        AlignRender();
     }
 
     private void AlignRender()
