@@ -47,7 +47,7 @@ public class GunShootLimit : GunBase
         float time = 0;
         while(time < timeToRecharge)
         {
-            time *= Time.deltaTime;
+            time += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         _currentShoots = 0;
